@@ -4,7 +4,6 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -114,3 +113,16 @@
     flex-direction: column;
   }
 }
+
+.mainnav ul{
+  display:flex;
+  justify-content: center;
+  margin-top:50px;
+  cursor:pointer;
+}
+.mainnav ul li{
+  margin:0 24px;
+  list-style:none;
+  font-weight:bold;
+}
+

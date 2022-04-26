@@ -1,0 +1,11 @@
+.main {
+    min-height: 80vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .blog_title{
+      cursor:pointer;
+  }
