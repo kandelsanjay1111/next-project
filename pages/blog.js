@@ -2,7 +2,7 @@ import React,{useEffect} from 'react'
 import styles from '../styles/Blog.module.css'
 import Link from 'next/link';
 
-export const getStaticProps=async ()=>{
+export const getServerSideProps=async ()=>{
 const res= await fetch('http://localhost:3000/api/blog');
 const blog=await res.json();
 return {
@@ -10,7 +10,7 @@ return {
         blog:blog
     }
 }
-}
+}  
 
 export default function blog({blog}) {
   return (
