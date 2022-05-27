@@ -15,13 +15,15 @@ export const getServerSideProps=async ()=>{
 export default function slug({blog}) {
     const router=useRouter();
     const {slug}=router.query;
+    function createMarkup(content){
+      return {__html:content}
+    }
   return (
     <div className={styles.container}>
       <main className={styles.main}>
         <h1>{blog.title}</h1>
         <hr></hr>
-        <div>
-        {blog.content}
+        <div dangerouslySetInnerHTML={createMarkup(blog.content)}>
         </div>
       </main>
       </div>
