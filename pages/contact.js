@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from '../styles/contact.module.css'
 
 export default function contact() {
   async function handleSubmit(event){
@@ -31,14 +32,16 @@ export default function contact() {
     console.log(result);
   }
   return (
-    <div>
+    <main className={styles.main}>
     <form onSubmit={handleSubmit} action="http://localhost:3000/api/getcontact" method="post">
-      <label htmlFor="first">First name:</label>
-      <input type="text" id="first" name="first" />
-      <label htmlFor="last">Last name:</label>
-      <input type="text" id="last" name="last" />
+      <label className={styles.label} htmlFor="first">Name</label>
+      <input className={styles.form_field} type="text" id="name" name="name" />
+      <label className={styles.label} htmlFor="email">Email</label>
+      <input className={styles.form_field} type="email" id="email" name="email" />
+      <label className={styles.label} htmlFor="channel">Channel</label>
+      <input  className={styles.form_field} type="text" id="channel" name="channel" />
       <button type="submit">Submit</button>
     </form>
-    </div>
+    </main>
   )
 }
