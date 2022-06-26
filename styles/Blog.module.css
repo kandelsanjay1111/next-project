@@ -9,3 +9,6 @@
   .blog_title{
       cursor:pointer;
   }
+  .blog_content{
+    width:80%;
+  }

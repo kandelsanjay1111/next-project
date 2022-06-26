@@ -43,30 +43,47 @@ export default function contact() {
       let errors={};
       if(!values.name)
       {
-        errors.name='Required'
+        errors.name='Name field is required'
       }
       if(!values.email)
       {
         errors.email='Required'
       }
-      if(!values.content)
+      else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+        errors.email = 'Invalid email address';
+      }
+      if(!values.channel)
       {
         errors.content='Required'
       }
       return errors;
     }
   });
-  console.log(formik.errors);
+  // console.log(formik.errors);
   return (
     <main className={styles.main}>
     <form onSubmit={formik.handleSubmit} action="http://localhost:3000/api/getcontact" method="post">
+
       <label className={styles.label} htmlFor="first">Name</label>
       <input className={styles.form_field} type="text" id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
+      {formik.errors.name && (
+      <div className={styles.text_danger}>{formik.errors.name}</div>
+      )}
+
       <label className={styles.label} htmlFor="email">Email</label>
       <input className={styles.form_field} type="email" id="email" name="email" onChange={formik.handleChange} value={formik.values.email}/>
+      {formik.errors.email && (
+      <div className={styles.text_danger}>{formik.errors.email}</div>
+      )}
+
       <label className={styles.label} htmlFor="channel">Channel</label>
       <input  className={styles.form_field} type="text" id="channel" name="channel" onChange={formik.handleChange} value={formik.values.channel}/>
+      {formik.errors.content && (
+      <div className={styles.text_danger}>{formik.errors.content}</div>
+      )}
+
       <button type="submit">Submit</button>
+
     </form>
     </main>
   )
