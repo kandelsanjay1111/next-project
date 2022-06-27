@@ -1,63 +1,71 @@
 import React from 'react'
 import styles from '../styles/contact.module.css'
 import {useFormik} from 'formik'
+import * as Yup from 'yup';
 
+const validationSchema=Yup.object({
+  name:Yup.string().required('Name field is required'),
+  email:Yup.string().email('Invalid email address').required('Email is required'),
+  channel: Yup.string().required('Channel is required')
+});
 export default function contact() {
-  async function handleSubmit(event){
-    event.preventDefault();
-    const data={
-      name:event.target.first.value,
-      last:event.target.last.value
-    }
+  // async function handleSubmit(event){
+  //   event.preventDefault();
+  //   const data={
+  //     name:event.target.first.value,
+  //     last:event.target.last.value
+  //   }
 
-    const jsonData=JSON.stringify(data);
+  //   const jsonData=JSON.stringify(data);
 
-    const endpoint="http://localhost:3000/api/getcontact";
+  //   const endpoint="http://localhost:3000/api/getcontact";
 
-    const options={
-      // The method is POST because we are sending data.
-      method: 'POST',
-      // Tell the server we're sending JSON.
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      // Body of the request is the JSON data we created above.
-      body:jsonData,
-    }
+  //   const options={
+  //     // The method is POST because we are sending data.
+  //     method: 'POST',
+  //     // Tell the server we're sending JSON.
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     // Body of the request is the JSON data we created above.
+  //     body:jsonData,
+  //   }
 
-    const response=await fetch(endpoint, options);
+  //   const response=await fetch(endpoint, options);
 
-    const result=await response.json();
+  //   const result=await response.json();
 
-    // alert(result);
-    // console.log(result);
-  }
+  //   // alert(result);
+  //   // console.log(result);
+  // }
+
   const formik=useFormik({
     initialValues:{
       name:"test",
-      email:"test email",
-      channel:"test channel"
+      email:"",
+      channel:""
     },
     onSubmit:(values)=>console.log(formik.values),
-    validate:values=>{
-      let errors={};
-      if(!values.name)
-      {
-        errors.name='Name field is required'
-      }
-      if(!values.email)
-      {
-        errors.email='Required'
-      }
-      else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
-      }
-      if(!values.channel)
-      {
-        errors.content='Required'
-      }
-      return errors;
-    }
+    validationSchema:validationSchema//values=>{
+      // let errors={};
+      // if(!values.name)
+      // {
+      //   errors.name='Name field is required'
+      // }
+      // if(!values.email)
+      // {
+      //   errors.email='Required'
+      // }
+      // else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      //   errors.email = 'Invalid email address';
+      // }
+      // if(!values.channel)
+      // {
+      //   errors.content='Required'
+      // }
+      // return errors;
+      
+    //}
   });
   // console.log(formik.errors);
   return (
@@ -78,8 +86,8 @@ export default function contact() {
 
       <label className={styles.label} htmlFor="channel">Channel</label>
       <input  className={styles.form_field} type="text" id="channel" name="channel" onChange={formik.handleChange} value={formik.values.channel}/>
-      {formik.errors.content && (
-      <div className={styles.text_danger}>{formik.errors.content}</div>
+      {formik.errors.channel && (
+      <div className={styles.text_danger}>{formik.errors.channel}</div>
       )}
 
       <button type="submit">Submit</button>

@@ -12,9 +12,13 @@ import {useQuery} from 'react-query'
 //     }
 // }
 // }  
+const fetchBlog=async()=>{
+  const response=await fetch('https://jsonplaceholder.typicode.com/posts/');
+  return await response.json();
+};
 
 export default function blog() {
-  const {isLoading,data,isError,error}=useQuery('blogs',()=>fetch('https://jsonplaceholder.typicode.com/posts/').then(res=>res.json()));
+  const {isLoading,data,isError,error}=useQuery('blogs',fetchBlog);
   // console.log(data);
   if(isLoading){
     return <div>Loading....</div>
