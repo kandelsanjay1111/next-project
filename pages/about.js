@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import Link from 'next/link';
 import {useQuery,useMutation,useQueryClient} from 'react-query';
 import {useFormik} from 'formik'
+import {db} from './firebase'
 
 const fetchData=async()=>{
   const res=await fetch('http://localhost:3000/api/about');
@@ -14,7 +15,7 @@ const fetchData=async()=>{
 }
 
 const uploadData=async(values)=>{
-  console.log(values);
+  // console.log(values);
   const options={
     method:'POST',
     body:JSON.stringify(values)
