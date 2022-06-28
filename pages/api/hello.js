@@ -3,18 +3,18 @@ import { Console } from 'console';
 import * as fs from 'fs';
 
 export default function handler(req, res) {
-  let allblogs=[];
-
-  fs.readdir(".././test/data",(err,blog)=>{
-    // console.log(blog);
-    blog.forEach((item)=>{
-      // console.log(item);
-        fs.readFile(".././test/data/"+item,"utf-8",(error,data)=>{
-           allblogs.push(JSON.parse(data));
-      })
-    })
-    console.log(allblogs);
-    res.status(200).json({name:'test'})
-  })
-
+  console.log(req.method);
+  // let about="";
+  let about={
+    title:'demo title',
+    content:'content demo'
+  };
+  about=JSON.stringify(about);
+  if(req.method=="POST")
+  {
+     about=req.body;
+  }
+  
+  fs.writeFile('.././test/data/about.json',about,(err)=>{console.log(err)});
+  res.status(200).json({status:"success"});
 }

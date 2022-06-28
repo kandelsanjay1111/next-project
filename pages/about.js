@@ -5,7 +5,7 @@ import styles from '../styles/Blog.module.css'
 import styles1 from '../styles/contact.module.css'
 import * as Yup from 'yup';
 import Link from 'next/link';
-import {useQuery,useMutation} from 'react-query';
+import {useQuery,useMutation,useQueryClient} from 'react-query';
 import {useFormik} from 'formik'
 
 const fetchData=async()=>{
@@ -13,27 +13,55 @@ const fetchData=async()=>{
   return await res.json();
 }
 
+const uploadData=async(values)=>{
+  console.log(values);
+  const options={
+    method:'POST',
+    body:JSON.stringify(values)
+  }
+  const res=await fetch('http://localhost:3000/api/hello',options);
+  return res.json();
+}
+
 const validationSchema=Yup.object({
-  name:Yup.string().required('Name field is required'),
+  title:Yup.string().required('Name field is required'),
   content: Yup.string().required('Channel is required')
 });
 
+// const handleSubmit=async()=>{
+//   const res=await fetch('http://localhost:3000/api/hello');
+//   return res.json();
+// }
 
 
-export default function about() {
+export default function about(props) {
+
+  const queryClient=useQueryClient();
+
+  const {data,isError,isLoading,refetch}=useQuery('posts',fetchData);
+
+  const {mutate}=useMutation(uploadData,{
+    onSuccess:()=>{
+      // queryClient.inValidateQueries('posts')
+      refetch();
+    },
+    onError:(err)=>{
+        console.log('hello error occured')
+    }
+  });
+
   const formik=useFormik({
     initialValues:{
-      name:"test",
-      email:"",
-      channel:""
+      title:"test",
+      content:"content",
     },
-    onSubmit:(values)=>console.log(formik.values),
+    onSubmit:async(values)=>{
+      // console.log(values);
+      mutate(values);
+    },
     validationSchema:validationSchema
   });
-  // const { data, error } = useSwr('http://localhost:3000/api/blog', fetcher)
-  const {data,isError,isLoading}=useQuery('posts',fetchData);
-  // if(error) return <div>Error in fetching data</div>
-  // if(!data) return <div>Loading...</div>
+  
   if(isLoading) return <div>Loading...</div>
   if(isError) return <div>Error in data fetching</div>
   return (
@@ -42,13 +70,13 @@ export default function about() {
             <h3 className={styles.blog_title}>{data.title}</h3>
             <p>{data.content}</p>
         </div>   
-        <form onSubmit={formik.handleSubmit} action="http://localhost:3000/api/getcontact" method="post">
+        <form onSubmit={formik.handleSubmit} method="post">
 
       <label className={styles1.label} htmlFor="first">Title</label>
-      <input className={styles1.form_field} type="text" id="name" name="title" onChange={formik.handleChange} value={formik.values.name}/>
+      <input className={styles1.form_field} type="text" id="name" name="title" onChange={formik.handleChange} value={formik.values.title}/>
 
       <label className={styles1.label} htmlFor="content">Content</label>
-      <input  className={styles1.form_field} type="text" id="content" name="content" onChange={formik.handleChange} value={formik.values.channel}/>
+      <input  className={styles1.form_field} type="text" id="content" name="content" onChange={formik.handleChange} value={formik.values.content}/>
 
       <button type="submit">Update About</button>
 

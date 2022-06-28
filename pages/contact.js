@@ -70,7 +70,7 @@ export default function contact() {
   // console.log(formik.errors);
   return (
     <main className={styles.main}>
-    <form onSubmit={formik.handleSubmit} action="http://localhost:3000/api/getcontact" method="post">
+    <form onSubmit={formik.handleSubmit} method="post">
 
       <label className={styles.label} htmlFor="first">Name</label>
       <input className={styles.form_field} type="text" id="name" name="name" onChange={formik.handleChange} value={formik.values.name}/>
