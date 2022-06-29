@@ -18,7 +18,7 @@ const fetchBlog=async()=>{
 };
 
 export default function blog() {
-  const {isLoading,data,isError,error, refetch}=useQuery('blogs',fetchBlog);
+  const {isLoading,data,isError,error}=useQuery('blogs',fetchBlog);
   // console.log(data);
   if(isLoading){
     return <div>Loading....</div>
@@ -39,8 +39,7 @@ export default function blog() {
             })
         }
         </div>
-        
-        
+               
     </main>
         
     </>

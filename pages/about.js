@@ -37,7 +37,6 @@ const validationSchema=Yup.object({
 
 export default function about(props) {
 
-  const queryClient=useQueryClient();
 
   const {data,isError,isLoading,refetch}=useQuery('posts',fetchData);
 
@@ -53,8 +52,8 @@ export default function about(props) {
 
   const formik=useFormik({
     initialValues:{
-      title:"test",
-      content:"content",
+      title:"",
+      content:"",
     },
     onSubmit:async(values)=>{
       // console.log(values);

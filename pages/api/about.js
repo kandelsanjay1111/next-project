@@ -4,19 +4,19 @@ import {collection,query,orderBy, onSnapshot} from '@firebase/firestore'
 
 export default function handler(req, res) {
     
-    const collectionRef=collection(db,'blog');
+    const collectionRef=collection(db,'about');
     
-    const q = query(collectionRef,orderBy("title","desc"));
+    const q = query(collectionRef);
     
 
     onSnapshot(q,(snapShot)=>{
         
-        let blog=snapShot.docs.map((doc)=>{
+        let about=snapShot.docs.map((doc)=>{
             return doc.data();
         }); 
         
         // console.log(blog[0]);
-        res.status(200).json(blog[0]);
+        res.status(200).json(about[0]);
     });
 
     // fs.readFile(".././test/data/about.json",(error,data)=>{
