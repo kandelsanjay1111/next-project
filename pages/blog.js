@@ -13,12 +13,12 @@ import {useQuery} from 'react-query'
 // }
 // }  
 const fetchBlog=async()=>{
-  const response=await fetch('https://jsonplaceholder.typicode.com/posts/');
+  const response=await fetch('http://localhost:3000/api/blog');
   return await response.json();
 };
 
 export default function blog() {
-  const {isLoading,data,isError,error}=useQuery('blogs',fetchBlog);
+  const {isLoading,data,isError,error, refetch}=useQuery('blogs',fetchBlog);
   // console.log(data);
   if(isLoading){
     return <div>Loading....</div>
@@ -26,6 +26,7 @@ export default function blog() {
   if(isError){
     return <div>error in link...</div>
   }
+  
   return (
     <>
     <main className={styles.main}>
@@ -34,7 +35,7 @@ export default function blog() {
             data.map((item,index)=>{
                 return <div className='blogItem' key={index}>
                     <Link href="/blog/1"><h3 className={styles.blog_title}>{item.title}</h3></Link>
-                    <p>{item.content}{item.body}</p></div>
+                    <p>{item.content}</p></div>
             })
         }
         </div>
