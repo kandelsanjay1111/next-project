@@ -2,6 +2,8 @@ import React from 'react'
 import styles from '../styles/contact.module.css'
 import {useFormik} from 'formik'
 import * as Yup from 'yup';
+import {db,app} from './firebase';
+import {collection,addDoc} from '@firebase/firestore';
 
 const validationSchema=Yup.object({
   name:Yup.string().required('Name field is required'),
@@ -9,63 +11,20 @@ const validationSchema=Yup.object({
   channel: Yup.string().required('Channel is required')
 });
 export default function contact() {
-  // async function handleSubmit(event){
-  //   event.preventDefault();
-  //   const data={
-  //     name:event.target.first.value,
-  //     last:event.target.last.value
-  //   }
-
-  //   const jsonData=JSON.stringify(data);
-
-  //   const endpoint="http://localhost:3000/api/getcontact";
-
-  //   const options={
-  //     // The method is POST because we are sending data.
-  //     method: 'POST',
-  //     // Tell the server we're sending JSON.
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     // Body of the request is the JSON data we created above.
-  //     body:jsonData,
-  //   }
-
-  //   const response=await fetch(endpoint, options);
-
-  //   const result=await response.json();
-
-  //   // alert(result);
-  //   // console.log(result);
-  // }
 
   const formik=useFormik({
     initialValues:{
-      name:"test",
+      name:"",
       email:"",
       channel:""
     },
-    onSubmit:(values)=>console.log(formik.values),
-    validationSchema:validationSchema//values=>{
-      // let errors={};
-      // if(!values.name)
-      // {
-      //   errors.name='Name field is required'
-      // }
-      // if(!values.email)
-      // {
-      //   errors.email='Required'
-      // }
-      // else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-      //   errors.email = 'Invalid email address';
-      // }
-      // if(!values.channel)
-      // {
-      //   errors.content='Required'
-      // }
-      // return errors;
-      
-    //}
+    onSubmit:(values,{resetForm})=>{
+      // console.log(formik.values);
+      const collectionRef=collection(db,"contact");
+      addDoc(collectionRef,values);
+      resetForm({values:""});
+    },
+    validationSchema:validationSchema
   });
   // console.log(formik.errors);
   return (
@@ -90,7 +49,7 @@ export default function contact() {
       <div className={styles.text_danger}>{formik.errors.channel}</div>
       )}
 
-      <button type="submit">Submit</button>
+      <button type="submit">Add Contact</button>
 
     </form>
     </main>
