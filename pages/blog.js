@@ -35,7 +35,7 @@ export default function blog() {
         {
             data.map((item,index)=>{
                 return <div className='blogItem' key={index}>
-                    <Link href={`/blog/1`}><h3 className={styles.blog_title}>{item.title}</h3></Link>
+                    <Link href={`blog/${item.id}`}><h3 className={styles.blog_title}>{item.title}</h3></Link>
                     <p>{item.content}</p></div>
             })
         }

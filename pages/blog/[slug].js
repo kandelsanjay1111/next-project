@@ -3,8 +3,8 @@ import {useRouter} from 'next/router';
 import styles from '../../styles/BlogPost.module.css';
 
 export const getServerSideProps=async (context)=>{
-  const {id}=context.params;
-  const res= await fetch(`http://localhost:3000/api/1`);
+  const {slug}=context.params;
+  const res= await fetch(`http://localhost:3000/api/${slug}`);
   const blog=await res.json();
   return {
       props:{
@@ -14,8 +14,7 @@ export const getServerSideProps=async (context)=>{
   }  
 
 export default function slug({blog}) {
-    const router=useRouter();
-    const {slug}=router.query;
+  
     function createMarkup(content){
       return {__html:content}
     }

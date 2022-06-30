@@ -8,7 +8,7 @@ export default function handler(req, res) {
     const url=req.url;
     const url_params=url.split('/');
     const id=url_params[url_params.length-1];
-    console.log(id);
+    // console.log(id);
 
     const collectionRef=doc(db,'blog',id);
     const data=getDoc(collectionRef);
