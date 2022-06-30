@@ -19,14 +19,12 @@ export default function contact() {
       channel:""
     },
     onSubmit:(values,{resetForm})=>{
-      // console.log(formik.values);
       const collectionRef=collection(db,"contact");
       addDoc(collectionRef,values);
       resetForm({values:""});
     },
     validationSchema:validationSchema
   });
-  // console.log(formik.errors);
   return (
     <main className={styles.main}>
     <form onSubmit={formik.handleSubmit} method="post">

@@ -1,21 +1,29 @@
 import * as fs from 'fs';
 import {db,app} from '../firebase';
-import {collection,query,orderBy, onSnapshot} from '@firebase/firestore'
-
+// import {collection,query,orderBy, onSnapshot} from '@firebase/firestore'
+import {collection,getDocs,addDoc} from 'firebase/firestore';
 
 export default function handler(req, res) {
 
     const collectionRef=collection(db,'blog');
     
-    const q = query(collectionRef,orderBy("title","desc"));
+    // const q = query(collectionRef,orderBy("title","desc"));
 
-    onSnapshot(q,(snapShot)=>{
+    // onSnapshot(q,(snapShot)=>{
         
-        let blog=snapShot.docs.map((doc)=>{
-            return doc.data();
-        }); 
+    //     let blog=snapShot.docs.map((doc)=>{
+    //         return doc.data();
+    //     }); 
         
-        // console.log(blog);
+    //     res.status(200).json(blog);
+    // });
+
+    getDocs(collectionRef)
+    .then((data)=>{
+        let blog=data.docs.map((item)=>{
+            // console.log(item.id);
+            return {...item.data(),id:item.id};
+        });
         res.status(200).json(blog);
     });
 

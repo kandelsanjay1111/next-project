@@ -2,8 +2,9 @@ import React from 'react';
 import {useRouter} from 'next/router';
 import styles from '../../styles/BlogPost.module.css';
 
-export const getServerSideProps=async ()=>{
-  const res= await fetch('http://localhost:3000/api/getblog');
+export const getServerSideProps=async (context)=>{
+  const {id}=context.params;
+  const res= await fetch(`http://localhost:3000/api/1`);
   const blog=await res.json();
   return {
       props:{
