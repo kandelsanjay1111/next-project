@@ -12,7 +12,7 @@ export default function handler(req, res) {
     onSnapshot(q,(snapShot)=>{
         
         let about=snapShot.docs.map((doc)=>{
-            return doc.data();
+            return {...doc.data(),id:doc.id};
         }); 
         
         // console.log(blog[0]);
