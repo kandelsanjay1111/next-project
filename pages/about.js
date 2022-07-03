@@ -5,9 +5,49 @@ import styles from '../styles/Blog.module.css'
 import styles1 from '../styles/contact.module.css'
 import * as Yup from 'yup';
 import Link from 'next/link';
+import 'react-quill/dist/quill.snow.css'
 import {useQuery,useMutation,useQueryClient} from 'react-query';
 import {useFormik} from 'formik'
 import {db} from './firebase'
+import dynamic from 'next/dynamic'
+
+const modules = {
+  toolbar: [
+    [{ header: '1' }, { header: '2' }, { font: [] }],
+    [{ size: [] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' },
+    ],
+    ['link', 'image', 'video'],
+    ['clean'],
+  ],
+  clipboard: {
+    // toggle to add extra line breaks when pasting HTML:
+    matchVisual: false,
+  },
+};
+
+const formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'image',
+  'video',
+];
+
 
 const fetchData=async()=>{
   const res=await fetch('http://localhost:3000/api/about');
@@ -31,6 +71,10 @@ const validationSchema=Yup.object({
 
 
 export default function about(props) {
+  const QuillNoSSRWrapper = dynamic(import('react-quill'), {	
+    ssr: false,
+    loading: () => <p>Loading ...</p>,
+    });
 
   const [edit,setEdit]=useState(false);
 
@@ -68,15 +112,17 @@ export default function about(props) {
             <h3 className={styles.blog_title}>{data.title}</h3>
             <p>{data.content}</p>
         </div>  
-         {console.log(edit)}
         <form onSubmit={formik.handleSubmit} method="post">
 
           <label className={styles1.label} htmlFor="first">Title</label>
           <input className={styles1.form_field} type="text" id="name" name="title" onChange={formik.handleChange} value={formik.values.title}/>
 
           <label className={styles1.label} htmlFor="content">Content</label>
-          <input  className={styles1.form_field} type="text" id="content" name="content" onChange={formik.handleChange} value={formik.values.content}/>
+          <QuillNoSSRWrapper className={styles1.form_field}  id="content"  modules={modules} formats={formats} theme="snow" name="content" onChange={formik.handleChange} value={formik.values.content}/>
+
           <input type="hidden" name="id" id="id" value={formik.values.id} onChange={formik.handleChange}></input>
+
+
           <button type="submit">Update About</button>
 
         </form> 
