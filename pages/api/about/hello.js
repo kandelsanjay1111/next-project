@@ -22,9 +22,6 @@ export default function handler(req, res) {
   .then(()=>{
     res.status(200).json({status:"success"});
   });
-
-
-  // console.log(docRef);
   
   // fs.writeFile('.././test/data/about.json',about,(err)=>{console.log(err)});
   // res.status(200).json({status:"success"});
