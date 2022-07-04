@@ -1,9 +1,10 @@
-import React,{useEffect} from 'react'
+import React,{useState} from 'react'
 import styles from '../styles/Blog.module.css'
 import Link from 'next/link';
 import {useQuery} from 'react-query';
 import {db,app} from './firebase';
 import {doc,deleteDoc} from '@firebase/firestore';
+import Form from '../Components/Form';
 
 // export const getServerSideProps=async ()=>{
 // const res= await fetch('https://jsonplaceholder.typicode.com/posts/');
@@ -22,6 +23,7 @@ const fetchBlog=async()=>{
 
 export default function blog() {
   const {isLoading,data,isError,refetch}=useQuery('blogs',fetchBlog);
+  const [add,setAdd]=useState(false);
 
   if(isLoading){
     return <div>Loading....</div>
@@ -29,6 +31,10 @@ export default function blog() {
 
   if(isError){
     return <div>error in link...</div>
+  }
+
+  if(add){
+    return <Form/>
   }
 
   const handleDelete=(e,id)=>{
@@ -45,7 +51,8 @@ export default function blog() {
   return (
     <>
     <main className={styles.main}>
-      <button>Add new</button>
+      
+      <button onClick={()=>setAdd(true)}>Add new</button>
         <div className={styles.blog_content}>
         {
             data.map((item,index)=>{
