@@ -24,6 +24,8 @@ const fetchBlog=async()=>{
 export default function blog() {
   const {isLoading,data,isError,refetch}=useQuery('blogs',fetchBlog);
   const [add,setAdd]=useState(false);
+  const [edit,setEdit]=useState(false);
+  const [blog,setBlog]=useState({});
 
   if(isLoading){
     return <div>Loading....</div>
@@ -34,19 +36,25 @@ export default function blog() {
   }
 
   if(add){
-    return <Form/>
+    return <Form editing={edit} blog={blog} refetch={refetch}/>
   }
 
   const handleDelete=(e,id)=>{
-    // alert(id);
+
     const collectionRef = doc(db, 'blog', id);
     deleteDoc(collectionRef)
             .then(() => {
                 refetch();
             });
 
-    console.log(collectionRef);
+    // console.log(collectionRef);
   };
+
+  const handleEdit=(item)=>{
+    setEdit(true);
+    setAdd(true);  
+    setBlog(item);
+  }
   
   return (
     <>
@@ -59,6 +67,7 @@ export default function blog() {
                 return <div className='blogItem' key={index}>
                     <Link href={`blog/${item.id}`}><h3 className={styles.blog_title}>{item.title}</h3></Link>
                     <button onClick={()=>handleDelete(event,item.id)}>Delete</button>
+                    <button onClick={()=>handleEdit(item)}>Edit</button>
                     <p>{item.content}</p></div>
             })
         }

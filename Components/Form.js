@@ -8,21 +8,35 @@ const validationSchema=Yup.object({
   content: Yup.string().required('Content is required')
 });
 
-const Form = () => {
-
-    const formik=useFormik({
-      initialValues:{
+const Form = ({editing,blog,refetch}) => {  
+  let url="";
+  let initialData={};
+    if(editing)
+    {
+      url="http://localhost:3000/api/"+blog.id;
+      initialData=blog;
+    }
+    else{
+      url="http://localhost:3000/api/blog";
+      initialData={
         title:'',
         content:''
-      },
+      }
+    }
+
+    const formik=useFormik({
+      initialValues:initialData,
+      enableReinitialize:true,
       onSubmit:async(values,{resetForm})=>{
-        const res=await fetch('http://localhost:3000/api/blog',{
+        console.log(values);
+        const res=await fetch(url,{
           method:"post",
           body:JSON.stringify(values)
         });
+        console.log(res.json());
         resetForm({values:''});
+        refetch();
         window.location.reload();
-        // console.log(res.json());
       },
       validationSchema:validationSchema
     });
