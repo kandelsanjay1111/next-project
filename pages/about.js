@@ -108,6 +108,7 @@ export default function about(props) {
   if(isError) return <div>Error in data fetching</div>
   return (
     <main className={styles.main}>
+      {console.log(data)}
         <div className={styles.blog_content}>
             <h3 className={styles.blog_title}>{data.title}</h3>
             <p>{data.content}</p>
@@ -118,8 +119,8 @@ export default function about(props) {
           <input className={styles1.form_field} type="text" id="name" name="title" onChange={formik.handleChange} value={formik.values.title}/>
 
           <label className={styles1.label} htmlFor="content">Content</label>
-          <QuillNoSSRWrapper className={styles1.form_field}  id="content"  modules={modules} formats={formats} theme="snow" name="content" onChange={formik.handleChange} value={formik.values.content}/>
-
+          {/* <QuillNoSSRWrapper className={styles1.form_field}  id="content"  modules={modules} formats={formats} theme="snow" name="content" onChange={formik.handleChange} value={formik.values.content}/> */}
+          <textarea className={`${styles1["form_field"]} ${styles1["content"]}`} type="text" id="content" name="content" value={formik.values.content} onChange={formik.handleChange}>{formik.values.content}</textarea>
           <input type="hidden" name="id" id="id" value={formik.values.id} onChange={formik.handleChange}></input>
 
 

@@ -16,12 +16,14 @@ export default function contact() {
     initialValues:{
       name:"",
       email:"",
-      channel:""
+      channel:"",
+      image:""
     },
     onSubmit:(values,{resetForm})=>{
-      const collectionRef=collection(db,"contact");
-      addDoc(collectionRef,values);
-      resetForm({values:""});
+      console.log(values.image);
+      // const collectionRef=collection(db,"contact");
+      // addDoc(collectionRef,values);
+      // resetForm({values:""});
     },
     validationSchema:validationSchema
   });
@@ -46,6 +48,9 @@ export default function contact() {
       {formik.errors.channel && (
       <div className={styles.text_danger}>{formik.errors.channel}</div>
       )}
+
+      <label className={styles.label} htmlFor="image">Add Image</label>
+      <input  className={styles.form_field} type="file" id="image" name="image" onChange={formik.handleChange}/>
 
       <button type="submit">Add Contact</button>
 
