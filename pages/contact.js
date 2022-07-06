@@ -1,9 +1,10 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styles from '../styles/contact.module.css'
 import {useFormik} from 'formik'
 import * as Yup from 'yup';
-import {db,app} from './firebase';
+import {db,app,storage} from './firebase';
 import {collection,addDoc} from '@firebase/firestore';
+import {ref, uploadBytes } from "firebase/storage";
 
 const validationSchema=Yup.object({
   name:Yup.string().required('Name field is required'),
@@ -20,10 +21,16 @@ export default function contact() {
       image:""
     },
     onSubmit:(values,{resetForm})=>{
-      console.log(values.image);
-      // const collectionRef=collection(db,"contact");
-      // addDoc(collectionRef,values);
-      // resetForm({values:""});
+      // console.log(values.image.name);
+      const image_name=values.image.name;
+      const storageRef=ref(storage,'image/'+image_name);
+      uploadBytes(storageRef, values.image).then((snapshot) => {
+        // console.log(snapshot);
+        const collectionRef=collection(db,"contact");
+        addDoc(collectionRef,{...values,image:image_name});
+        resetForm({values:""});
+      });
+      
     },
     validationSchema:validationSchema
   });
@@ -50,7 +57,9 @@ export default function contact() {
       )}
 
       <label className={styles.label} htmlFor="image">Add Image</label>
-      <input  className={styles.form_field} type="file" id="image" name="image" onChange={formik.handleChange}/>
+      <input  className={styles.form_field} type="file" id="image" name="image" onChange={(event)=>{
+        formik.setFieldValue("image",event.target.files[0])}
+        }/>
 
       <button type="submit">Add Contact</button>
 
