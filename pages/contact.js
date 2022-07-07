@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import {db,app,storage} from './firebase';
 import {collection,addDoc} from '@firebase/firestore';
 import {ref, uploadBytes } from "firebase/storage";
+import Preview from '../Components/Preview';
 
 const validationSchema=Yup.object({
   name:Yup.string().required('Name field is required'),
@@ -18,10 +19,11 @@ export default function contact() {
       name:"",
       email:"",
       channel:"",
-      image:""
+      image:null,
+      position:""
     },
     onSubmit:(values,{resetForm})=>{
-      // console.log(values.image.name);
+      console.log(values);
       const image_name=values.image.name;
       const storageRef=ref(storage,'image/'+image_name);
       uploadBytes(storageRef, values.image).then((snapshot) => {
@@ -60,6 +62,18 @@ export default function contact() {
       <input  className={styles.form_field} type="file" id="image" name="image" onChange={(event)=>{
         formik.setFieldValue("image",event.target.files[0])}
         }/>
+
+        <Preview></Preview>
+
+      <label htmlFor="position">Position</label>
+      <select className={styles.form_field} name="position" onChange={(event)=>{formik.setFieldValue('position',event.target.value)}}>
+        <option value="one">One</option>
+        <option value="two">Two</option>
+        <option value="three">Three</option>
+        <option value="four">Four</option>
+      </select>
+      
+      <label htmlFor="position">Position</label>
 
       <button type="submit">Add Contact</button>
 

@@ -28,12 +28,12 @@ const Form = ({editing,blog,refetch}) => {
       initialValues:initialData,
       enableReinitialize:true,
       onSubmit:async(values,{resetForm})=>{
-        console.log(values);
+        // console.log(values);
         const res=await fetch(url,{
           method:"post",
           body:JSON.stringify(values)
         });
-        console.log(res.json());
+        // console.log(res.json());
         resetForm({values:''});
         refetch();
         window.location.reload();
@@ -50,12 +50,13 @@ const Form = ({editing,blog,refetch}) => {
         <div className={styles.text_danger}>{formik.errors.title}</div>
         )}
         <label className={styles.label} htmlFor="content">Content</label>
-        {/* <input className={styles.form_field} type="text" id="content" name="content" onChange={formik.handleChange} value={formik.values.content}/> */}
         <textarea className={`${styles["form_field"]} ${styles["content"]}`} type="text" id="content" name="content" onChange={formik.handleChange}>{formik.values.content}</textarea>
         {formik.errors.content && (
         <div className={styles.text_danger}>{formik.errors.content}</div>
         )}
+
         <button type="submit">{editing ?"Update" :"Add Blog"}</button>
+        {/* <button>Back</button> */}
 
       </form>
     </div>
