@@ -50,3 +50,7 @@ span.psw {
      width: 100%;
   }
 }
+
+.text_danger{
+  color:red;
+}
