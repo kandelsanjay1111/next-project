@@ -50,7 +50,7 @@ const Form = ({editing,blog,refetch}) => {
         <div className={styles.text_danger}>{formik.errors.title}</div>
         )}
         <label className={styles.label} htmlFor="content">Content</label>
-        <textarea className={`${styles["form_field"]} ${styles["content"]}`} type="text" id="content" name="content" onChange={formik.handleChange}>{formik.values.content}</textarea>
+        <textarea className={`${styles["form_field"]} ${styles["content"]}`} type="text" id="content" name="content" onChange={formik.handleChange} value={formik.values.content}>{formik.values.content}</textarea>
         {formik.errors.content && (
         <div className={styles.text_danger}>{formik.errors.content}</div>
         )}

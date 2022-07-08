@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import Image from 'next/image'
 
 const Preview = ({image}) => {
@@ -10,9 +10,15 @@ const Preview = ({image}) => {
   };
 
   return (
-    <Image src={preview}>
-
-    </Image>
+    <>
+      <div>
+        {
+          preview && <Image src={preview} height={200} width={200}/>
+        }
+        
+      </div>
+    </>
+    
   )
 }
 

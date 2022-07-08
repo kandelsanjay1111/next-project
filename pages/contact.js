@@ -62,8 +62,10 @@ export default function contact() {
       <input  className={styles.form_field} type="file" id="image" name="image" onChange={(event)=>{
         formik.setFieldValue("image",event.target.files[0])}
         }/>
-
-        <Preview></Preview>
+      {
+        formik.values.image && <Preview image={formik.values.image}></Preview>
+      }
+        
 
       <label htmlFor="position">Position</label>
       <select className={styles.form_field} name="position" onChange={(event)=>{formik.setFieldValue('position',event.target.value)}}>
