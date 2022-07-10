@@ -108,7 +108,6 @@ export default function about(props) {
   if(isError) return <div>Error in data fetching</div>
   return (
     <main className={styles.main}>
-      {console.log(data)}
         <div className={styles.blog_content}>
             <h3 className={styles.blog_title}>{data.title}</h3>
             <p>{data.content}</p>

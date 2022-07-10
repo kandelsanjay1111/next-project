@@ -7,21 +7,21 @@ import { useRouter } from 'next/router'
 
 
 const validationSchema=Yup.object({
-username:Yup.string().required('Username is required'),
+username:Yup.string().required('Username is required').email('Insert the username in email format'),
 password:Yup.string().required('Password field is required')
 });
 
 const signin = () => {
     const router=useRouter();
     const {user,signup}=useAuth();
-    console.log(user);
+    // console.log(user);
     const formik=useFormik({
       initialValues:{
         username:"",
         password:""
       },
       onSubmit:(async(values)=>{
-        console.log(values);
+        // console.log(values);
         try{
           const res=await signup(values.username,values.password);
           router.push('/login');

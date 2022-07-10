@@ -25,6 +25,7 @@ export const AuthContextProvider = ({children}) => {
     }
     
     const logout=async()=>{
+        console.log('logout');
         setUser(null);
         await signOut(auth);
     }
