@@ -14,8 +14,6 @@ password:Yup.string().required('Password field is required')
 const signin = () => {
     const router=useRouter();
     const {user,signup}=useAuth();
-    console.log(user);
-    console.log(router.pathname);
     const formik=useFormik({
       initialValues:{
         username:"",

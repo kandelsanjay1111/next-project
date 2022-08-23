@@ -17,11 +17,13 @@ export const Navbar = () => {
                 <Link href="/blog"><li>Blog</li></Link>
                 <Link href="/contact"><li>Contact</li></Link>
                 {
-                  user && <Link href="/" onClick={(event)=>{
+                  user && <button href="/logout" onClick={(event)=>{
                     event.preventDefault();
+                    alert('hello');
                     logout();
                     // router.push('/');
-                  }}><li>Logout</li></Link>
+                  }}><li>Logout</li>
+                  </button>
                 }
             </ul>
       </nav>
