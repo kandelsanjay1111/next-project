@@ -19,7 +19,6 @@ export const Navbar = () => {
                 {
                   user && <button href="/logout" onClick={(event)=>{
                     event.preventDefault();
-                    alert('hello');
                     logout();
                     // router.push('/');
                   }}><li>Logout</li>

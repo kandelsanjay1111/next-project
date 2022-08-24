@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@react-query-firebase/firestore": "^1.0.0-dev.1",
+    "antd": "^4.22.7",
     "firebase": "^9.8.4",
     "firebase-admin": "^11.0.0",
     "formik": "^2.2.9",

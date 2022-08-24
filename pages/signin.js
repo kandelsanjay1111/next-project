@@ -1,32 +1,28 @@
-import React from 'react'
+import React,{useState} from 'react'
 import styles from '../styles/login.module.css'
 import {useAuth} from '../Components/Context/AuthContext'
 import {useFormik} from 'formik'
-import * as Yup from 'yup';
 import { useRouter } from 'next/router'
+import { initialAuthValues,validationSchema } from '../Components/formik/signin';
 
-
-const validationSchema=Yup.object({
-username:Yup.string().required('Username is required').email('Insert the username in email format'),
-password:Yup.string().required('Password field is required')
-});
 
 const signin = () => {
     const router=useRouter();
     const {user,signup}=useAuth();
     const formik=useFormik({
-      initialValues:{
-        username:"",
-        password:""
-      },
+      initialValues:initialAuthValues,
       onSubmit:(async(values)=>{
         // console.log(values);
+        setLoading(true);
         try{
           const res=await signup(values.username,values.password);
           router.push('/login');
         }
         catch(error){
           console.log(error)
+        }
+        finally{
+          setLoading(false);
         }
         
       }),
