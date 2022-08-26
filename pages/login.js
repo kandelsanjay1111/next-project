@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useEffect, useState} from 'react'
 import styles from '../styles/login.module.css'
 import {useFormik} from 'formik'
 import { useAuth } from '../Components/Context/AuthContext';
@@ -11,6 +11,10 @@ import { Spin } from 'antd';
   const router=useRouter();
   const {user,login}=useAuth();
   const [loading,setLoading]=useState(false);
+
+  if(user){
+    router.push('/dashboard');
+  }
 
   const formik = useFormik({
     initialValues:initialAuthValues,
@@ -47,7 +51,7 @@ import { Spin } from 'antd';
                 <Error message={formik.errors.password}/>
                 )}
 
-                <button type="submit" className={styles.button}>{loading?<Spin style={{color:"white"}} size='large'/>:"Login"}</button>
+                <button disabled={loading} type="submit" className={styles.button}>Login</button>
 
             </div>
         </form>
