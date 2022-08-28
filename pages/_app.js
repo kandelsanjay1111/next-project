@@ -4,6 +4,7 @@ import {Query, QueryClient, QueryClientProvider} from 'react-query'
 import {AuthContextProvider} from '../Components/Context/AuthContext'
 import ProtectedRoute from '../Components/ProtectedRoute'
 import { useRouter } from 'next/router'
+import 'antd/dist/antd.css';
 
 const noAuthPath=['/login','/'];
 
