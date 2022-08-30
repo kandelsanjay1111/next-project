@@ -6,15 +6,22 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest"
   },
   "dependencies": {
     "@react-query-firebase/firestore": "^1.0.0-dev.1",
+    "@testing-library/dom": "^8.17.1",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.3.0",
     "antd": "^4.22.7",
+    "babel-jest": "^29.0.1",
     "firebase": "^9.8.4",
     "firebase-admin": "^11.0.0",
     "formik": "^2.2.9",
+    "identity-obj-proxy": "^3.0.0",
     "infinite-scroll": "^4.0.1",
+    "jest-dom": "^4.0.0",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",
@@ -25,6 +32,8 @@
   },
   "devDependencies": {
     "eslint": "8.12.0",
-    "eslint-config-next": "12.1.4"
+    "eslint-config-next": "12.1.4",
+    "jest": "^29.0.1",
+    "jest-environment-jsdom": "^29.0.1"
   }
 }
