@@ -7,7 +7,7 @@ import {ref, uploadBytes } from "firebase/storage";
 import Preview from '../Components/Preview';
 import { contactValidationSchema } from '../Components/formik/conact';
 import Error from '../Components/error';
-import {Button,Spin} from 'antd';
+import {Button,Radio} from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 
 export default function contact() {
@@ -18,6 +18,7 @@ export default function contact() {
     initialValues:{
       name:"",
       email:"",
+      gender:"",
       channel:"",
       image:null,
       position:""
@@ -59,6 +60,17 @@ export default function contact() {
       {formik.errors.email && (
       <Error message={formik.errors.email}/>
       )}
+
+      <label className={styles.label}>Gender</label>
+      <Radio.Group
+      onChange={formik.handleChange}
+       name="gender"
+       defaultValue='male'
+       options={[
+        {label:"Male",value:"male"},
+        {label:"Female",value:"female"}
+       ]}/>
+
 
       <label className={styles.label} htmlFor="channel">Channel</label>
       <input  className={styles.form_field} type="text" id="channel" name="channel" onChange={formik.handleChange} value={formik.values.channel}/>

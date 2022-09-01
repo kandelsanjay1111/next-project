@@ -1,11 +1,10 @@
-import React,{useEffect, useState} from 'react'
+import React,{ useState} from 'react'
 import styles from '../styles/login.module.css'
 import {useFormik} from 'formik'
 import { useAuth } from '../Components/Context/AuthContext';
 import { useRouter } from 'next/router';
 import { initialAuthValues,validationSchema } from '../Components/formik/signin';
 import Error from '../Components/error';
-import { Spin } from 'antd';
 
  const login = () => {
   const router=useRouter();

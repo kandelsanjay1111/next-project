@@ -30,14 +30,12 @@ export default function Home() {
           <Link href="/login">
             <a href="/login" className={styles.card}>
               <h2>Login</h2>
-              {/* <p>Find in-depth information about Next.js features and API.</p> */}
             </a>
           </Link>
           
           <Link href="/signin">
             <a href="/signin" className={styles.card}>
               <h2>Register</h2>
-              {/* <p>Find in-depth information about Next.js features and API.</p> */}
             </a>
           </Link>
 
