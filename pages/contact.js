@@ -7,12 +7,17 @@ import {ref, uploadBytes } from "firebase/storage";
 import Preview from '../Components/Preview';
 import { contactValidationSchema } from '../Components/formik/conact';
 import Error from '../Components/error';
-import {Button,Radio} from 'antd';
+import {Button,Radio,Select} from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
+import MultiSelect from '../Components/atoms/select';
+
+const { Option } = Select;
 
 export default function contact() {
 
   const [loading,setLoading]=useState(false);
+
+  const handleSelectChange=(value)=>{formik.setFieldValue('profession',value)}
 
   const formik=useFormik({
     initialValues:{
@@ -21,10 +26,11 @@ export default function contact() {
       gender:"",
       channel:"",
       image:null,
-      position:""
+      position:"",
+      profession:[],
     },
     onSubmit:(values,{resetForm})=>{
-      // console.log(values);
+      console.log(values);
       try{
         setLoading(true);
         const image_name=values.image.name;
@@ -71,6 +77,11 @@ export default function contact() {
         {label:"Female",value:"female"}
        ]}/>
 
+       <label className={styles.label}>Select Profession</label>
+       <MultiSelect
+        handleChange={handleSelectChange}
+        profession={formik.values.profession}
+       />
 
       <label className={styles.label} htmlFor="channel">Channel</label>
       <input  className={styles.form_field} type="text" id="channel" name="channel" onChange={formik.handleChange} value={formik.values.channel}/>
