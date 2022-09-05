@@ -3,6 +3,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '../styles/Home.module.css'
 import Script from 'next/script'
+import ButtonLink from '../Components/atoms/auth'
+import AuthLink from '../Components/molecules/auth'
+import Introduction from '../Components/organisms/Introduction'
 
 export default function Home() {
   return (
@@ -22,25 +25,7 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to Our Blog
-        </h1>
-
-        <div className={styles.grid}>
-          <Link href="/login">
-            <a href="/login" className={styles.card}>
-              <h2>Login</h2>
-            </a>
-          </Link>
-          
-          <Link href="/signin">
-            <a href="/signin" className={styles.card}>
-              <h2>Register</h2>
-            </a>
-          </Link>
-
-        </div>
-
+        <Introduction/>
       </main>
 
       <footer className={styles.footer}>
