@@ -10,6 +10,7 @@ import Error from '../Components/error';
   const router=useRouter();
   const {user,login}=useAuth();
   const [loading,setLoading]=useState(false);
+  const [error,setError]=useState('');
 
   if(user){
     router.push('/dashboard');
@@ -25,7 +26,7 @@ import Error from '../Components/error';
         router.push('/dashboard');
       }
       catch(error){
-        console.log(error);
+        setError("Email or password is incorrect");
       }
       finally{
         setLoading(false);
@@ -42,13 +43,20 @@ import Error from '../Components/error';
                 <input type="text" placeholder="Enter Username" name="username" className={styles.input_field}  onChange={formik.handleChange} value={formik.values.username}/>
                 {formik.errors.username && (
                 <Error message={formik.errors.username}/>
-                )}
+                )
+                }
 
                 <label htmlFor="password"><b>Password</b></label>
                 <input type="password" placeholder="Enter Password" name="password" className={styles.input_field} onChange={formik.handleChange} value={formik.values.password}/>
                 {formik.errors.password && (
                 <Error message={formik.errors.password}/>
                 )}
+
+                {
+                  error && (
+                    <Error message={error}/>
+                  )
+                }
 
                 <button disabled={loading} type="submit" className={styles.button}>Login</button>
 
