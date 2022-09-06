@@ -10,6 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@firebase/testing": "^0.20.11",
     "@react-query-firebase/firestore": "^1.0.0-dev.1",
     "@testing-library/dom": "^8.17.1",
     "@testing-library/jest-dom": "^5.16.5",
@@ -22,6 +23,7 @@
     "identity-obj-proxy": "^3.0.0",
     "infinite-scroll": "^4.0.1",
     "jest-dom": "^4.0.0",
+    "jspdf": "^2.5.1",
     "next": "12.1.4",
     "react": "18.0.0",
     "react-dom": "18.0.0",

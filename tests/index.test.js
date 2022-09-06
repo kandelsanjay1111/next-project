@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import Home from "../pages/index";
 import '@testing-library/jest-dom/extend-expect';
+import Link from 'next/link';
 
 describe("App", () => {
   it('Check if app run',()=>{

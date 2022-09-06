@@ -10,6 +10,7 @@ import Error from '../Components/error';
 import {Button,Radio,Select} from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import MultiSelect from '../Components/atoms/select';
+import jsPDF from 'jspdf';
 
 const { Option } = Select;
 
@@ -18,19 +19,28 @@ export default function contact() {
   const [loading,setLoading]=useState(false);
 
   const handleSelectChange=(value)=>{formik.setFieldValue('profession',value)}
+  
+  const generatePdf=()=>{
+    const doc=new jsPDF('p','pt');
+    doc.text(20,20,'this is the test title');
+    doc.text(20,60,'this is the second title');
+    doc.text(20,100,'this is the third title');
+
+    doc.save('test.pdf');
+  }
 
   const formik=useFormik({
     initialValues:{
       name:"",
       email:"",
-      gender:"",
+      gender:"male",
       channel:"",
       image:null,
-      position:"",
+      position:"one",
       profession:[],
     },
     onSubmit:(values,{resetForm})=>{
-      console.log(values);
+      // console.log(values);
       try{
         setLoading(true);
         const image_name=values.image.name;
@@ -113,6 +123,12 @@ export default function contact() {
       >Add Contact</Button>
 
     </form>
+    <Button
+    type="primary"
+    onClick={()=>generatePdf()}
+    >
+      Generate Pdf
+    </Button>
     </main>
   )
 }
